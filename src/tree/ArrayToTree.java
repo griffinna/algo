@@ -26,7 +26,7 @@ public class ArrayToTree {
             return node;
         }
 
-        void searchBTree(Node n, int find) { // n : 시작노드 , find : 찾는 값
+        void searchBTree(Node n, int find) {  // n : 시작노드 , find : 찾는 값
             if (find < n.data) {
                 System.out.println("Data is smaller than " + n.data);
                 searchBTree(n.left, find);
