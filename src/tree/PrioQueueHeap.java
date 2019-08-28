@@ -34,5 +34,6 @@ public class PrioQueueHeap {
         } else if (maxHeap.size() > minHeap.size()) {
             return maxHeap.peek();
         }
+        return 0;
     }
 }
