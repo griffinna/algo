@@ -6,10 +6,6 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 /**
- * 
- * @author 나가람
- *	
-
 입력 : 정점 수 / 간선 수 / 시작노드
 		간선 수 만큼 시작정점 - 종료정점 - 비용
 시작노드로부터 각 정점까지 최소비용 
