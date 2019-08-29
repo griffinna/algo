@@ -6,9 +6,9 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 /**
-ÀÔ·Â : Á¤Á¡ ¼ö / °£¼± ¼ö / ½ÃÀÛ³ëµå
-		°£¼± ¼ö ¸¸Å­ ½ÃÀÛÁ¤Á¡ - Á¾·áÁ¤Á¡ - ºñ¿ë
-½ÃÀÛ³ëµå·ÎºÎÅÍ °¢ Á¤Á¡±îÁö ÃÖ¼Òºñ¿ë 
+ì…ë ¥ : ì •ì  ìˆ˜ / ê°„ì„  ìˆ˜ / ì‹œì‘ë…¸ë“œ
+		ê°„ì„  ìˆ˜ ë§Œí¼ ì‹œì‘ì •ì  - ì¢…ë£Œì •ì  - ë¹„ìš©
+ì‹œì‘ë…¸ë“œë¡œë¶€í„° ê° ì •ì ê¹Œì§€ ìµœì†Œë¹„ìš© 
 
 input
 8 11 1
@@ -36,9 +36,9 @@ public class DijkstraBasic {
 	static int E;	// edge count
 	static int S;	// start node
 	static int x, y, val;
-	static int[][] map;		// ³ëµå°£ °Å¸®
-	static int[] dist;		// ÇØ´ç³ëµå±îÁöÀÇ ÃÖ´Ü°Å¸®
-	static boolean[] visited;	// ¹æ¹®¿©ºÎ
+	static int[][] map;		// ë…¸ë“œê°„ ê±°ë¦¬
+	static int[] dist;		// í•´ë‹¹ë…¸ë“œê¹Œì§€ì˜ ìµœë‹¨ê±°ë¦¬
+	static boolean[] visited;	// ë°©ë¬¸ì—¬ë¶€
 	
 	public static void main(String[] args) throws Exception {
 		
@@ -53,7 +53,7 @@ public class DijkstraBasic {
 		dist = new int[N + 1];
 		visited = new boolean[N + 1];
 		
-		Arrays.fill(dist, Integer.MAX_VALUE);		// ÃÖ´Ü°Å¸®ÀÏ¶§´Â ÃÖ´ë°ªÀ¸·Î ÃÊ±âÈ­
+		Arrays.fill(dist, Integer.MAX_VALUE);		// ìµœë‹¨ê±°ë¦¬ì¼ë•ŒëŠ” ìµœëŒ€ê°’ìœ¼ë¡œ ì´ˆê¸°í™”
 		Arrays.fill(visited, false);
 		
 		for (int i = 0; i < E; i++) {
@@ -74,7 +74,7 @@ public class DijkstraBasic {
 		dist[S] = 0;
 		visited[S] = true;
 		
-		// ¿¬°á³ëµå distance °»½Å
+		// ì—°ê²°ë…¸ë“œ distance ê°±ì‹ 
 		for(int i = 1; i <= N; i++) {
 			if(!visited[i] && map[S][i] != 0) {
 				dist[i] = map[S][i];
