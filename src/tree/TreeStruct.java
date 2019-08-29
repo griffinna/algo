@@ -1,4 +1,4 @@
-package algo.tree;
+package tree;
 
 public class TreeStruct {
 
