@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Stack;
 
+/**
+ * https://m.blog.naver.com/ndb796/221236952158
+ */
 public class Tarjan_algorithm {
 
 	static final int MAX = 10001;
