@@ -1,8 +1,11 @@
-package graph;
+package graph.BOJ;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
@@ -51,7 +54,7 @@ public class Solution1753 {
 	
 	static int u, v, w;	// u 에서 v 로 가는 가중치 w
 	
-	static int[][] graph;
+	static List<List<NodeInfo>> graph;
 	static PriorityQueue<NodeInfo> queue;
 	static int[] d;
 	
@@ -78,10 +81,15 @@ public class Solution1753 {
 		K = Integer.parseInt(br.readLine());
 		
 		// init
-		graph = new int[V + 1][V + 1];
+//		graph = new int[V + 1][V + 1];
+		graph = new ArrayList<List<NodeInfo>>();
 		queue = new PriorityQueue<NodeInfo>();
 		d = new int[V + 1];
 		Arrays.fill(d, Integer.MAX_VALUE);
+		
+		for (int i = 0; i <= V; i++) {
+			graph.add(new ArrayList<NodeInfo>());
+		}
 		
 		for (int i = 1; i <= E; i++) {
 			st = new StringTokenizer(br.readLine());
@@ -89,8 +97,8 @@ public class Solution1753 {
 			v = Integer.parseInt(st.nextToken());
 			w = Integer.parseInt(st.nextToken());
 			
-			graph[u][v] = w;
-			
+//			graph[u][v] = w;
+			graph.get(u).add(new NodeInfo(v, w));
 		}
 
 		dijkstra(K);
@@ -117,14 +125,13 @@ public class Solution1753 {
 			if(dist > d[idx]) {
 				continue;
 			}
-			for (int i = 0; i <= V; i++) {
-				if(graph[idx][i] != 0 && d[i] > d[idx] + graph[idx][i]) {
-					d[i] = d[idx] + graph[idx][i];
-					queue.offer(new NodeInfo(i, d[i]));
+			for (NodeInfo node : graph.get(idx)) {
+				if(d[node.idx] > d[idx] + node.dist) {
+					d[node.idx] = d[idx] + node.dist;
+					queue.add(new NodeInfo(node.idx, d[node.idx]));
 				}
 			}
 		}
-		
 	}
 	
 }
