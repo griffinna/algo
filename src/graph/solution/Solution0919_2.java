@@ -123,31 +123,51 @@ public class Solution0919_2 {
                 Edge edge = edges[i];
                 if(edge.x == S || edge.y == S || edge.x == E || edge.y == E){
                     // TODO max 값 다시세팅 필요?
+                    boolean flag = false;
                     startIdx = i;
                     min = edge.cost;
-                }
-
-                for (int k = 0; k < N; k++) {
-                    parent[k] = k;
-                }
-
-                for (int j = startIdx; j < M; j++) {
-                    int a = findRoot(edges[j].x);
-                    int b = findRoot(edges[j].y);
-                    if (a == b) {
-                        continue;
-                    } else {
-                        parent[a] = b;
-                        max = edges[j].cost;
+                    for (int k = 0; k < N; k++) {
+                        parent[k] = k;
                     }
-                    if (isEnd()) {
-                        long diff = max - min;
-                        ANS = Math.min(ANS, diff);
 
-                        debugging();
-                        System.out.print("-> " + ANS);
-                        System.out.println();
-                        break;
+                    for (int j = startIdx; j < M; j++) {
+                        int a = findRoot(edges[j].x);
+                        int b = findRoot(edges[j].y);
+                        if (a == b) {
+                            continue;
+                        } else {
+                            parent[a] = b;
+                            max = edges[j].cost;
+                        }
+                        if (isEnd()) {
+                            long diff = max - min;
+                            ANS = Math.min(ANS, diff);
+
+    //                        debugging();
+                            flag = true;
+                            break;
+                        }
+                    }
+
+                    if (!flag) {
+                        for (int j = startIdx; j >= 0; j--) {
+                            int a = findRoot(edges[j].x);
+                            int b = findRoot(edges[j].y);
+                            if (a == b) {
+                                continue;
+                            } else {
+                                parent[a] = b;
+                                min = edges[j].cost;
+                            }
+                            if (isEnd()) {
+                                long diff = max - min;
+                                ANS = Math.min(ANS, diff);
+
+        //                        debugging();
+
+                                break;
+                            }
+                        }
                     }
                 }
             }
@@ -164,6 +184,8 @@ public class Solution0919_2 {
                 System.out.print(i + " - ");
             }
         }
+        System.out.print("-> " + ANS);
+        System.out.println();
     }
 
     static boolean isEnd() {
