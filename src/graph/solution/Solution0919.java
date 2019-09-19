@@ -1,4 +1,4 @@
-package graph;
+package graph.solution;
 
 /*
 4
@@ -57,7 +57,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.StringTokenizer;
 
-public class Solution0919_2 {
+public class Solution0919 {
 
     static int N, M;
     static int a, b;
@@ -85,11 +85,10 @@ public class Solution0919_2 {
             parent = new int[N + 1];
             edges = new Edge[M];
             // TODO ANS는 최대값으로 변경해야하나?
-//            ANS = 0;
-            ANS = Long.MAX_VALUE;
-//            for (int i = 0; i < N; i++) {
-//                parent[i] = i;
-//            }
+            ANS = 0;
+            for (int i = 0; i < N; i++) {
+                parent[i] = i;
+            }
 
             for (int i = 0; i < M; i++) {
                 st = new StringTokenizer(br.readLine());
@@ -117,7 +116,7 @@ public class Solution0919_2 {
 
             int startIdx = 0;
             long min = 0;
-            long max = Long.MIN_VALUE;
+            long max = 0;
 
             for (int i = 0; i < edges.length; i++) {
                 Edge edge = edges[i];
@@ -125,45 +124,28 @@ public class Solution0919_2 {
                     // TODO max 값 다시세팅 필요?
                     startIdx = i;
                     min = edge.cost;
-                }
-
-                for (int k = 0; k < N; k++) {
-                    parent[k] = k;
-                }
-
-                for (int j = startIdx; j < M; j++) {
-                    int a = findRoot(edges[j].x);
-                    int b = findRoot(edges[j].y);
-                    if (a == b) {
-                        continue;
-                    } else {
-                        parent[a] = b;
-                        max = edges[j].cost;
-                    }
-                    if (isEnd()) {
-                        long diff = max - min;
-                        ANS = Math.min(ANS, diff);
-
-                        debugging();
-                        System.out.print("-> " + ANS);
-                        System.out.println();
-                        break;
-                    }
+                    max = Long.MIN_VALUE;
+                    break;
                 }
             }
 
+            for (int i = startIdx; i < M; i++) {
+                int a = findRoot(edges[i].x);
+                int b = findRoot(edges[i].y);
+                if (isEnd()) {
+                    break;
+                }
+                if (a == b) {
+                    continue;
+                } else {
+                    parent[a] = b;
+                    max = edges[i].cost;
+                }
+            }
+            ANS = max - min;
             System.out.println("#" + test_case + " " + ANS);
         }
 
-    }
-
-    private static void debugging() {
-        int a = findRoot(S);
-        for (int i = 0; i < parent.length; i++) {
-            if (parent[i] == a) {
-                System.out.print(i + " - ");
-            }
-        }
     }
 
     static boolean isEnd() {
