@@ -6,6 +6,11 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 /**
+ *
+ * 구간 합 구하기 4
+ *
+ * https://www.acmicpc.net/problem/11659
+ *
  * 문제
  * 수 N개가 주어졌을 때, i번째 수부터 j번째 수까지 합을 구하는 프로그램을 작성하시오.
  *
