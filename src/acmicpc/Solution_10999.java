@@ -38,6 +38,33 @@ import java.util.StringTokenizer;
  * 26
  * 22
  *
+ *
+ *
+ * input:
+ * 16 1 2
+ * 5
+ * 8
+ * 6
+ * 3
+ * 2
+ * 7
+ * 2
+ * 6
+ * 7
+ * 1
+ * 7
+ * 5
+ * 6
+ * 2
+ * 3
+ * 2
+ * 2 1 16
+ * 1 6 14 2
+ * 2 1 16
+ *
+ * answer:
+ * 72
+ * 90
  */
 public class Solution_10999 {
 
