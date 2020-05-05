@@ -1,5 +1,11 @@
 package acmicpc;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.StringTokenizer;
+
 /**
  *
  * 최솟값과 최댓값
@@ -45,5 +51,81 @@ package acmicpc;
  *
  */
 public class Solution_2357 {
+
+    static int N, M, size;
+    static Node[] tree;
+    static class Node {
+        long value;
+        long min = Long.MAX_VALUE;
+        long max = Long.MIN_VALUE;
+    }
+
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+
+        size = 2;
+        while(N > size){
+            size *= 2;
+        }
+        tree = new Node[size * 2];
+//        System.out.println("size : " + size);
+
+        for (int i = 0; i < tree.length; i++) {
+            Node node = new Node();
+            tree[i] = node;
+        }
+
+        for (int i = 0; i < N; i++) {
+            Node node = tree[size + i];
+            node.value = Long.parseLong(br.readLine());
+            node.max = node.value;
+            node.min = node.value;
+//            tree[size + i] = node;
+        }
+
+        for (int i = size - 1; i > 0; i--) {
+            Node node = tree[i];
+            node.max = Math.max(tree[i * 2].max, tree[i * 2 + 1].max);
+            node.min = Math.min(tree[i * 2].min, tree[i * 2 + 1].min);
+        }
+
+        int a, b;
+        for (int i = 0; i < M; i++) {
+            st = new StringTokenizer(br.readLine());
+            a = Integer.parseInt(st.nextToken());
+            b = Integer.parseInt(st.nextToken());
+            HashMap<String, Long> map = findMinMax(size + a - 1, size + b - 1);
+            System.out.printf("%s %s\n", map.get("MIN"), map.get("MAX"));
+        }
+    }
+
+    private static HashMap<String, Long> findMinMax(int a, int b) {
+
+        HashMap<String, Long> map = new HashMap<>();
+        long min = Long.MAX_VALUE;
+        long max = Long.MIN_VALUE;
+        while (a <= b) {
+            if(a % 2 == 1) {
+                min = Math.min(min, tree[a].min);
+                max = Math.max(max, tree[a].max);
+            }
+
+            if(b % 2 == 0){
+                min = Math.min(min, tree[b].min);
+                max = Math.max(max, tree[b].max);
+            }
+
+            a = (a + 1) / 2;
+            b = (b - 1) / 2;
+        }
+        map.put("MAX", max);
+        map.put("MIN", min);
+        return map;
+
+    }
 
 }
