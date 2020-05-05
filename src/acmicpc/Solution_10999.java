@@ -43,7 +43,7 @@ public class Solution_10999 {
 
     static int N, M, K;
     static long[] tree, lazy;
-    static int[] arr;
+    static long[] arr;
 
     public static void main(String[] args) throws Exception {
 
@@ -59,13 +59,13 @@ public class Solution_10999 {
         }
         tree = new long[size * 2 + 1];
         lazy = new long[size * 2 + 1];
-        arr = new int[size + 1];
+        arr = new long[size + 1];
 
         for (int i = 0; i < N; i++) {
 //            tree[size + i] = Integer.parseInt(br.readLine());
-            arr[i + 1] = Integer.parseInt(br.readLine());
+            arr[i + 1] = Long.parseLong(br.readLine());
         }
-        makeTree(1, size - 1, 1);
+        makeTree(1, size, 1);
 //        System.out.println(Arrays.toString(arr));
 //        System.out.println(Arrays.toString(tree));
 
@@ -115,7 +115,7 @@ public class Solution_10999 {
         }
     }
 
-    private static void updateNode(int node, int left, int right, int start, int end, int value) {
+    private static void updateNode(int node, int left, int right, int start, int end, long value) {
         updateLazy(node, left, right);
         if (start > right || end < left) {
             return;
@@ -140,17 +140,11 @@ public class Solution_10999 {
     private static long makeTree(int left, int right, int node) {
         if(left == right){
             return tree[node] = arr[left];
+        }else{
+            int mid = (left + right) / 2;
+
+            return tree[node] = makeTree(left, mid, node * 2)
+                                + makeTree(mid + 1, right, node * 2 + 1);
         }
-
-        int mid = (left + right) / 2;
-
-        tree[node] += makeTree(left, mid, node * 2);
-        tree[node] += makeTree(mid + 1, right, node * 2 + 1);
-
-        return tree[node];
-
     }
-
-
-
 }
