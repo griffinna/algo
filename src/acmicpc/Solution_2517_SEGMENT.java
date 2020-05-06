@@ -2,7 +2,8 @@ package acmicpc;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 
 /**
@@ -57,7 +58,7 @@ import java.util.Comparator;
  *
  *
  */
-public class Solution_2517 {
+public class Solution_2517_SEGMENT {
 
     static class Player{
         int index;
@@ -65,7 +66,7 @@ public class Solution_2517 {
     }
 
     static int N, size;
-    static Player[] arr;
+    static ArrayList<Player> arr;
     static int[] tree;
     static int[] answer;
 
@@ -80,16 +81,17 @@ public class Solution_2517 {
     public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         N = Integer.parseInt(br.readLine());
-        arr = new Player[N];
+        arr = new ArrayList<>();
         answer = new int[N];
+
         for (int i = 0; i < N; i++) {
             Player player = new Player();
             player.index = i + 1;
             player.speed = Long.parseLong(br.readLine());
-            arr[i] = player;
+            arr.add(player);
         }
 
-        Arrays.sort(arr, new ComparePlayer());
+        Collections.sort(arr, new ComparePlayer());
 
         size = 2;
         while (size < N) {
@@ -97,20 +99,29 @@ public class Solution_2517 {
         }
         tree = new int[size * 2];
 
-        for (int i = 0; i < arr.length; i++) {
-//            int count = getCount(size, size + arr[i].index - 1);
-//            updateCount(size + arr[i].index - 1, 1);
-
-            int count = getCountToTop(1, size, size + N - 1, size, size + arr[i].index - 1);
-            updateCount(size + arr[i].index - 1, 1);
-            answer[arr[i].index - 1] = count + 1;
+        for (int i = 0; i < N; i++) {
+            int idx = arr.get(i).index;
+            int count = getCountToTop(1, size, size + N - 1, size, size + idx - 1);
+            update(1, size, size + N - 1, size + idx - 1, 1);
+            answer[idx - 1] = count + 1;
         }
 
-//        System.out.println(Arrays.toString(answer));
 
         for (int i = 0; i < answer.length; i++) {
             System.out.println(answer[i]);
         }
+    }
+
+    static int update(int node, int left, int right, int idx, int val) {
+        if (idx < left || right < idx) {
+            return tree[node];
+        }
+        if (left == right) {
+            return tree[node] = val;
+        }
+        int mid = (left + right) / 2;
+        return tree[node] = update(node * 2, left, mid, idx, val)
+                + update(node * 2 + 1, mid + 1, right, idx, val);
     }
 
     private static int getCountToTop(int node, int left, int right, int start, int end) {   // segment
@@ -128,28 +139,6 @@ public class Solution_2517 {
         return tree[node] = getCountToTop(node * 2, left, mid, start, end)
                 + getCountToTop(node * 2 + 1, mid + 1, right, start, end);
 
-    }
-
-    private static void updateCount(int idx, int value) {   // index
-
-        while (idx > 0) {
-            tree[idx] += value;
-            idx /= 2;
-        }
-
-    }
-
-    private static int getCount(int a, int b) {         // index
-
-        int count = 0;
-        while (a <= b) {
-            if(a % 2 == 1) count += tree[a];
-            if(b % 2 == 0) count += tree[b];
-
-            a = (a + 1) / 2;
-            b = (b - 1) / 2;
-        }
-        return count;
     }
 
 }
