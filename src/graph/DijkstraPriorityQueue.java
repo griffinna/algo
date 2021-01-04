@@ -91,20 +91,20 @@ public class DijkstraPriorityQueue {
 	
 		dist[s] = 0;
 		queue.offer(new NodeInfo(s, dist[s]));
-		
+
 		while(!queue.isEmpty()) {
-			
+
 			NodeInfo nInfo = queue.poll();
-			
+
 			int cost = nInfo.dist;
 			int idx = nInfo.idx;
-			
+
 			if(cost > dist[idx]) {
 				continue;
 			}
-			
+
 			System.out.print(" - " + idx);
-			
+
 			for (int i = 0; i <= N; i++) {
 				if(graph[idx][i] != 0 && dist[i] > dist[idx] + graph[idx][i]) {
 					dist[i] = dist[idx] + graph[idx][i];
@@ -112,7 +112,7 @@ public class DijkstraPriorityQueue {
 				}
 			}
 		}
-		
+
 		System.out.println();
 		for(int i = 1; i <= N; i++) {
 			System.out.print(dist[i] + " ");
