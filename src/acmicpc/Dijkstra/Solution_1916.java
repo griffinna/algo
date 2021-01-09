@@ -1,4 +1,4 @@
-package acmicpc;
+package acmicpc.Dijkstra;
 
 /**문제
  N개의 도시가 있다. 그리고 한 도시에서 출발하여 다른 도시에 도착하는 M개의 버스가 있다.
