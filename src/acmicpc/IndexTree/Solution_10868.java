@@ -1,4 +1,4 @@
-package acmicpc;
+package acmicpc.IndexTree;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
