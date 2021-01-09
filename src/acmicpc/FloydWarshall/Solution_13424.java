@@ -1,4 +1,4 @@
-package acmicpc;
+package acmicpc.FloydWarshall;
 
 import java.io.*;
 import java.util.*;
