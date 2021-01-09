@@ -1,4 +1,4 @@
-package acmicpc;
+package acmicpc.FailSolution;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
