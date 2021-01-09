@@ -1,4 +1,4 @@
-package acmicpc;
+package acmicpc.TwoPointers;
 
 import java.io.*;
 import java.util.*;
