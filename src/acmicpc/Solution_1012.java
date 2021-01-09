@@ -34,7 +34,6 @@ public class Solution_1012 {
                 for (int j = 0; j < M; j++) {
                     if (map[i][j] == 1) {
                         findNext(i, j, 0);
-//                        ANS++;
                         if(ANS == K) break loop;
                     }
                 }
