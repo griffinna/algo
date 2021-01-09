@@ -1,4 +1,4 @@
-package acmicpc;
+package acmicpc.BFS;
 
 import java.io.*;
 import java.util.*;
