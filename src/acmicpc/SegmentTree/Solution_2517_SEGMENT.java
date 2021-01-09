@@ -1,4 +1,4 @@
-package acmicpc;
+package acmicpc.SegmentTree;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
