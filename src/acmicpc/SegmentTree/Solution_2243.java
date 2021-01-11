@@ -50,7 +50,7 @@ public class Solution_2243 {
         }else{
             long leftCnt = tree[node * 2];
             int mid = (start + end) / 2;
-            if (leftCnt >= num && node * 2 <= tree.length - 1) {
+            if (leftCnt >= num) {
                 return getCandyIdx(node * 2, start, mid, num);
             }
             num -= leftCnt;
