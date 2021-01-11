@@ -10,8 +10,7 @@
 * bfs
 * 크루스칼
 * 프림알고리즘
-
-## .
+* 위상정렬 (Topology Sort)
 * LCA (최소공통조상)
 * Union & Find
 
