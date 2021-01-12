@@ -1,4 +1,4 @@
-package acmicpc.MSTPrim;
+package acmicpc.MST;
 
 import java.io.*;
 import java.util.*;
