@@ -27,7 +27,6 @@ public class Solution_2211 {
         int M = Integer.parseInt(st.nextToken());
         ArrayList<Computer>[] adj = new ArrayList[N + 1];
         int[] dist = new int[N + 1];
-        boolean[][] visit = new boolean[N + 1][N + 1];
         int[] parent = new int[N + 1];
         for (int i = 0; i < parent.length; i++) {
             parent[i] = i;
@@ -46,7 +45,6 @@ public class Solution_2211 {
 
         Arrays.fill(dist, Integer.MAX_VALUE);
         dist[1] = 0;
-        visit[0][1] = true;
         PriorityQueue<Computer> pq = new PriorityQueue<>(new SortComputer());
         pq.add(new Computer(1, dist[1]));
         while (!pq.isEmpty()) {
