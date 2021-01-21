@@ -1,7 +1,6 @@
 package acmicpc.Combinatorics;
 
 import java.io.*;
-import java.util.*;
 
 public class Solution_2775 {
     static int K, N;
