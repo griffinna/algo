@@ -58,60 +58,49 @@ import java.util.Comparator;
  *
  *
  */
-class Player{
-    int index;
-    int speed;
-    public Player(int index, int speed) {
-        this.index = index;
-        this.speed = speed;
-    }
-}
 
-class ComparePlayer implements Comparator<Player> {
 
-    @Override
-    public int compare(Player o1, Player o2) {
-
-        return o1.speed > o2.speed ? -1 : o1.speed == o2.speed ? 0 : 1;
-
-    }
-}
 
 public class Solution_2517_BIT {
 
     static int N;
-//    static Player[] arr;
     static ArrayList<Player> arr;
     static int[] tree;
     static int[] answer;
+    static class Player{
+        int index;
+        int speed;
+        public Player(int index, int speed) {
+            this.index = index;
+            this.speed = speed;
+        }
+    }
+    static class ComparePlayer implements Comparator<Player> {
+        @Override
+        public int compare(Player o1, Player o2) {
+            return o1.speed > o2.speed ? -1 : o1.speed == o2.speed ? 0 : 1;
+
+        }
+    }
 
     public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         N = Integer.parseInt(br.readLine());
-//        arr = new Player[N];
         arr = new ArrayList<>();
         answer = new int[N];
-
         tree = new int[N + 1];
-
         for (int i = 0; i < N; i++) {
             Player player = new Player(i + 1, Integer.parseInt(br.readLine()));
-//            arr[i] = player;
-//            arr.set(i, player);
             arr.add(player);
         }
 
-//        Arrays.sort(arr, new ComparePlayer());
         Collections.sort(arr, new ComparePlayer());
         for (int i = 1; i <= N; i++) {
-//            int idx = arr[i - 1].index;
             int idx = arr.get(i - 1).index;
             int count = find(idx);
             update(idx, 1);
             answer[idx - 1] = count + 1;
         }
-
-//        System.out.println(Arrays.toString(answer));
 
         for (int i = 0; i < answer.length; i++) {
             System.out.println(answer[i]);
@@ -119,7 +108,6 @@ public class Solution_2517_BIT {
     }
 
     private static int find(int idx) {
-
         assert idx > 0;
         int count = 0;
         while (idx > 0) {
@@ -136,6 +124,4 @@ public class Solution_2517_BIT {
             idx += (idx & -idx);
         }
     }
-
-
 }
