@@ -10,7 +10,12 @@ public class Solution_2517 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         N = Integer.parseInt(br.readLine());
         int[][] list  = new int[N][2];
-        tree = new int[N * 4];
+        int x = 1;
+        while (Math.pow(2, x) <= N) {
+            x++;
+        }
+        int size = (int) Math.pow(2, x);
+        tree= new int[size * 2];
         int speed;
         for (int i = 0; i < N; i++) {
             speed = Integer.parseInt(br.readLine());
@@ -27,9 +32,9 @@ public class Solution_2517 {
         int[] ans = new int[N + 1];
         for (int i = 0; i < N; i++) {
             int idx = list[i][0];
-            int cnt = countPlayer(1, 1, N, 1,idx - 1);
+            int cnt = countPlayer(1, 1, size, 1,idx - 1);
             ans[idx] = cnt + 1;
-            update(1, 1, N, idx);
+            update(1, 1, size, idx);
         }
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < N; i++) {
