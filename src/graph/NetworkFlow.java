@@ -33,7 +33,7 @@ public class NetworkFlow {
 		}
 		
 		a[1].addLast(2);
-		a[2].addLast(1);
+		a[2].addLast(1);	// 음의 유량도 확인하기 위함
 		c[1][2] = 12;
 		
 		a[1].addLast(4);
@@ -81,14 +81,14 @@ public class NetworkFlow {
 	private static void maxFlow(int start, int end) {
 		
 		while (true) {
-			Arrays.fill(d, -1);
+			Arrays.fill(d, -1);	// 모든 노드를 방문하지 않았으므로 -1으로 초기
 			Queue<Integer> queue = new LinkedList<Integer>();
-			queue.add(start);
-			
+			queue.add(start);			// 시작점을 큐에 넣어
+			// BFS
 			while(!queue.isEmpty()) {
-				int x = queue.poll();
-				for (int i = 0; i < a[x].size(); i++) {
-					int y = a[x].get(i);
+				int x = queue.poll();	// 큐에서 하나를 꺼내
+				for (int i = 0; i < a[x].size(); i++) {	// 인접노드 확인
+					int y = a[x].get(i);				// 인접노드 정보
 					// 방문하지 않은 노드 중에 용량이 남은 경우
 					if(c[x][y] - f[x][y] > 0 && d[y] == -1) {
 						queue.add(y);
@@ -98,15 +98,16 @@ public class NetworkFlow {
 				}
 			}
 			
-			if(d[end] == -1) break; // 모든 경로를 찾은 경우
-			int flow = INF;
+			if(d[end] == -1) break; // 모든 경로를 찾은 후 탈출(BFS 수행 후, 도착지에 도달하지 못하면 모든 경로를 이미 찾은 것이기 때문임)
+			int flow = INF;			// 최소값을 찾기위해 inf 로 초기화
+			// end ~ start 최소유량 탐색 (한번반복마다 자기 이전 경로로 돌아옴)
 			for (int i = end; i != start; i = d[i]) {	// 거꾸로 최소 유량 탐색
 				flow = Math.min(flow, c[d[i]][i] - f[d[i]][i]);
 			}
 			// 최소 유량만큼 추가
 			for (int i = end; i != start; i = d[i]) {
 				f[d[i]][i] += flow;
-				f[i][d[i]] += flow;
+				f[i][d[i]] -= flow;	// 음의유량 처리
 			}
 			result += flow;
 		}
