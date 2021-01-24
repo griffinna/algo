@@ -56,14 +56,23 @@ public class Solution_2042 {
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
         K = Integer.parseInt(st.nextToken());
+        /**
+           2^i 개의 노드를 가진 트리로 만든다.
+           1 ~ 8까지 8개의 구간 합이 필요하면
+                    1
+               2         3
+            4    5     6     7
+           8 9 10 11 12 13 14 15
 
+           위와 같이 총 15개(idx 는 0부터니까 16개)가 필요하고,
+           리프노드층의 시작은 2^i 로 시작한다.
+        */
         size = 2;
         while(size < N){
             size *= 2;
         }
 
         tree = new long[size * 2];
-//        tree = new long[4000001];
         for (int i = 0; i < N; i++) {
             tree[size + i] = Integer.parseInt(br.readLine());
         }
@@ -80,8 +89,13 @@ public class Solution_2042 {
             b = Integer.parseInt(st.nextToken());
 
             if(cmd == 1){   // update
+                /**
+                   * bottom up *
+                    실제 index 의 숫자가 저장된 리프노드부터 1 번까지 update 하기 위한 쿼리
+                    a : (leaf node 층의 시작인) size + a - 1
+                    b : (leaf node 층의 시작인) size + b - 1
+                 */
                 change(size + a - 1, b - tree[size + a - 1]);
-//                System.out.println("change " + a + " to " + b + " > " +Arrays.toString(tree));
             }else if(cmd == 2){     // sum
                 long sum = getSum(size + a - 1, size + b - 1);
                 System.out.println(sum);
@@ -92,6 +106,11 @@ public class Solution_2042 {
 
     private static long getSum(int a, int b) {
         long sum = 0;
+        /**
+            a 는 왼쪽부터 중앙으로 b는 오른쪽에서부터 중앙으로 이동한다.
+            왼쪽자식노드는 짝수번 node 인데, 왼쪽의 a 가 홀수라면 해당 node 값은 즉시 더해줘야한다.
+            오른쪽자식노드는 홀수번 node 인데, 오른쪽의 b 가 짝수라면 해당 node 값은 즉시 더해줘야한다.
+         * */
         while(a <= b){
             if(a % 2 == 1) sum += tree[a];
             if(b % 2 == 0) sum += tree[b];
@@ -102,6 +121,10 @@ public class Solution_2042 {
     }
 
     private static void change(int a, long b) {
+        /**
+            leaf node 부터 root node 로 올라가면서 (a /= 2)
+            지나가는 모든 노드에 값을 증가시킨다.
+        * */
         while(a > 0){
             tree[a] += b;
             a /= 2;
