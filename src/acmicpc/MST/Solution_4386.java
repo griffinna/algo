@@ -7,6 +7,7 @@ public class Solution_4386 {
     static class Edge { int s, e; double dist; }
     static class Star { int idx; double x, y; }
 
+    // 간선을 가중치 오름차순으로 정렬하기 위한 class
     static class SortEdge implements Comparator<Edge> {
         @Override
         public int compare(Edge o1, Edge o2) {
@@ -34,6 +35,7 @@ public class Solution_4386 {
             list[i] = star;
         }
 
+        // 간선을 가중치 오름차순으로 정렬해서 사용 할 우선순위 큐 선언
         PriorityQueue<Edge> edgePq = new PriorityQueue<>(new SortEdge());
 
         for (int i = 0; i < N - 1; i++) {
@@ -43,21 +45,21 @@ public class Solution_4386 {
                 edge.s = list[i].idx;
                 edge.e = list[next].idx;
                 edge.dist = getDistance(list[i].x, list[i].y, list[next].x, list[next].y);
-                edgePq.add(edge);
+                edgePq.add(edge);   // 간선정보를 우선순위큐에 넣어준다.
             }
         }
 
         int cnt = 0;
         double sum = 0;
-        while (!edgePq.isEmpty()) {
+        while (!edgePq.isEmpty()) {         // 큐에서 가중치가 작은 간선부터 연결을 시도한다.
             Edge now = edgePq.poll();
-            if (!isConnect(now.s, now.e)) {
-                union(now.s, now.e);
-                cnt++;
-                sum += now.dist;
+            if (!isConnect(now.s, now.e)) { // 해당 간선의 양끝 정점이 이어져있지않다면
+                union(now.s, now.e);        // 두 정점을 연결시킨다.
+                cnt++;                      // 연결 간선수를 + 1
+                sum += now.dist;            // 연결된 간선 거리를 더해준다.
             }
 
-            if(cnt == N - 1) break;
+            if(cnt == N - 1) break;         // 연결된 간선수가 정점수 -1 이라면 모든 정점이 연결됐기때문에 탐색 종료
         }
         System.out.println(String.format("%.2f", sum));
     }
