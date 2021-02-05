@@ -1,4 +1,4 @@
-package acmicpc.NetworkFolw;
+package acmicpc.NetworkFlow;
 
 import java.io.*;
 import java.util.*;
